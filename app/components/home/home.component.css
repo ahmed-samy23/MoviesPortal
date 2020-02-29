@@ -1,0 +1,8 @@
+.moveimg{
+    height: 350px;
+}
+
+.moveimg:hover {
+    box-shadow: 0 0 2px 1px crimson;
+    
+  }

@@ -1,0 +1,172 @@
+<div class="body">
+<br>
+<h1>Wellcom MR/ name</h1>
+<p>Add new movie by filling out this fields</p>
+<form #f="ngForm" (ngSubmit)="addnewmovie(f)">
+    <div class="form-group">
+      <label>Title: </label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">camera_roll</mat-icon></div>
+        </div>
+      <input name="title" #title="ngModel" ngModel type="text" class="form-control" placeholder="Name of movie" required maxlength="29">
+      </div>
+      <div class="alert alert-danger" *ngIf="title.touched && (title.errors?.required || title.errors?.maxlength)">
+        <div *ngIf="title.errors?.required">ERR...this Field is required, please enter the title of new movie.</div>
+        <div *ngIf="title.errors?.minlength"> ERR...title must be maximum lengh {{title.errors?.maxlength.requiredLength}} charctars, but you entered {{title.errors?.minlength.actualLength}} charctars
+          </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6">
+          <label>Director: </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">camera_front</mat-icon></div>
+            </div>
+          <input name="director" #Director="ngModel" ngModel type="text" class="form-control" placeholder="Example: honshon my" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="Director.touched && Director.errors?.required">
+            ERR...this Field is required, please enter the Director of new movie.
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label>writers: </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">create</mat-icon></div>
+            </div>
+          <input name="writers" #writers="ngModel" ngModel type="text" class="form-control" placeholder="Example: honshon my" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="writers.touched && writers.errors?.required">
+            ERR...this Field is required, please enter the writers of new movie.If are more than one, sperate by ',' .
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label>Important Cast: </label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">people</mat-icon></div>
+          </div>
+        <input name="superstare" #ImportantCast="ngModel" ngModel type="text" class="form-control" placeholder="Example: mohamed ramadan, mohamed saed" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="ImportantCast.touched && ImportantCast.errors?.required">
+          ERR...this Field is required, please enter the Important Cast of new movie Using "," as a separator between names.
+        </div>
+      </div>
+    <div class="form-group">
+        <label>TrailerUrl: </label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">ondemand_video</mat-icon></div>
+          </div>
+        <input name="trailerUrl" #TrailerUrl="ngModel" ngModel type="text" class="form-control"
+         placeholder="pattern: https://www.youtube.com/embed/....." required (keyup)="validtiontrialurl(TrailerUrl.value)">
+        </div>
+        <div class="alert alert-danger" *ngIf="TrailerUrl.touched && (TrailerUrl.errors?.required || pattern)">
+          <div *ngIf="TrailerUrl.errors?.required"> ERR...this Field is required, please enter the Trailer Url of new movie. </div>
+          <div *ngIf="pattern"> ERR...the TrailerUrl of new movie must be from youtube embeded source link only. </div>
+        </div>
+      </div>
+    <div class="form-group">
+        <label>Description: </label>
+        <div class="input-group mb-2">
+        <textarea name="descrition" #Description="ngModel" ngModel type="text" class="form-control" placeholder="minimum 200 charac" required minlength="200"></textarea>
+        </div>
+        <div class="alert alert-danger" *ngIf="Description.touched && (Description.errors?.required || Description.errors?.minlength)">
+          <div *ngIf="Description.errors?.required"> ERR...This Field is required, please Descript the story of new movie </div>
+          <div *ngIf="Description.errors?.minlength"> ERR...Description must be at least {{Description.errors?.minlength.requiredLength}} charctars, but you entered {{Description.errors?.minlength.actualLength}} charctars
+           </div>
+        </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6">
+          <label>Release Date</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">calendar_today</mat-icon></div>
+            </div>
+            <input name="ReleaseDate" #ReleaseDate="ngModel" ngModel class="form-control" type="date" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="ReleaseDate.touched && ReleaseDate.errors?.required">
+            ERR...this Field is required, please dertmine when this movie become avaliable on cinema.
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label>Runtime ( min )</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">av_timer</mat-icon></div>
+            </div>
+            <input name="runtime" #runtime="ngModel" ngModel class="form-control" type="number" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="runtime.touched && runtime.errors?.required">
+            ERR...this Field is required, Please enter the duration of the movie in minutes.
+          </div>
+        </div>
+      </div>
+      
+  </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-4">
+                <label for="exampleFormControlFile1">Poster: </label>
+                <input name="posterUrl" #PosterUrl="ngModel" ngModel type="file" class="form-control-file" accept=".jpg, .png" required (change)="validtionposter($event)">
+                <div class="alert alert-danger"  *ngIf="PosterUrl.touched && ( PosterUrl.errors?.required || isposter ) " style="margin-top: 15px;">
+                  <div *ngIf="PosterUrl.errors?.required"> ERR...this Field is required, please choose poster for new movie.</div>
+                  <div *ngIf="isposter"> ERR...poster must be as (.jpg /.png) only.</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label>Type: </label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">star</mat-icon></div>
+                  </div>
+                <select class="form-control" name="type" #Type="ngModel" ngModel required>
+                  <option value="0" disabled selected hidden>choose type of new movie</option>
+                <option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>
+                </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="Type.touched && Type.errors?.required">
+                  ERR...this Field is required, please dertmine type of movie.
+                </div>
+            </div>
+            <div class="col-4">
+              <label>Country: </label>
+              <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">location_city</mat-icon></div>
+              </div>
+              <select class="form-control" name="country" #Country="ngModel" ngModel required>
+                <option value="0" disabled selected hidden>choose type of new movie</option>
+              <option *ngFor="let op of opcountries" [value]="op">{{op}}</option>
+              </select>
+            </div>
+              <div class="alert alert-danger" *ngIf="Country.touched && Country.errors?.required">
+                ERR...this Field is required, please dertmine Country that made of movie.
+              </div>
+          </div>
+        </div>
+    </div>
+      <div class="row">
+          <div class="col-6">
+              <button type="submit" class="btn btn-light btn-lg" data-toggle="tooltip" 
+              title="Please Fill of All Fields Correctly First!" [disabled]="f.invalid || isposter || pattern">Add movie</button> 
+          </div>
+          <div class="col-6 text-right">
+              <button type="button" class="btn btn-danger btn-lg">Cancel</button>
+        </div>
+      </div>  
+  </form>
+  <br>
+</div>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+  });
+  </script>

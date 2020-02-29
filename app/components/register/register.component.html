@@ -1,0 +1,97 @@
+<br>
+<h1>Sign up</h1>
+<p>Create new account now for free</p>
+<form #f="ngForm" (ngSubmit)="signupWithEP(f)">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-6">
+          <label>First Name: </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">person</mat-icon></div>
+            </div>
+            <input #Firstname="ngModel" name="firstname" ngModel type="text" class="form-control" placeholder="Example: ahmed" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="Firstname.touched && Firstname.errors?.required">
+            ERR...this Field is required, please enter your Frist-name
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <label>LastName: </label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">person</mat-icon></div>
+            </div>
+            <input #LastName="ngModel" name="lastname" ngModel type="text" class="form-control" placeholder="Example: mohamed" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="LastName.touched && LastName.errors?.required">
+            ERR...this Field is required, please enter your Last-name
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email (Used to sign in & Verificate): </label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">email</mat-icon></div>
+        </div>
+      <input #email="ngModel" name="email" ngModel type="text" class="form-control" placeholder="Example: ab@x.com" required email>
+      </div>
+      <div class="alert alert-danger" *ngIf="email.touched && email.errors?.required">
+        ERR...This Field is required, please enter your exact Email
+      </div>
+      <div class="alert alert-danger" *ngIf="email.touched && email.errors?.email">
+        ERR...You must write an exact Email
+      </div>
+    </div>
+    <div class="form-group">
+        <label>Password: </label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">visibility_off</mat-icon></div>
+            </div>
+        <input #password="ngModel" name="password" ngModel type="password" class="form-control" placeholder="minimum 8 charctars" required minlength="8">
+        </div>
+        <div class="alert alert-danger" *ngIf="password.touched && password.errors?.required">
+          ERR...This Field is required, please enter your password
+        </div>
+        <div class="alert alert-danger" *ngIf="password.touched && password.errors?.minlength">
+          ERR...Your password must be at least {{password.errors?.minlength.requiredLength}} charctars, but you entered {{password.errors?.minlength.actualLength}} charctars
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Confirme Password: </label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">visibility_off</mat-icon></div>
+            </div>
+        <input #ConfirmePassword="ngModel" name="ConfirmePassword" ngModel type="password" class="form-control" placeholder="The same of password" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="ConfirmePassword.touched && (ConfirmePassword.errors?.required || ConfirmePassword.value !== password.value)">
+          <div *ngIf="ConfirmePassword.errors?.required"> ERR...This Field is required, please Re-enter your password </div>
+          <div *ngIf="ConfirmePassword.value !== password.value"> ERR...Passwords are not match...chick your passwords </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-3">
+              <button type="submit" class="btn btn-outline-secondary btn-lg" data-toggle="tooltip" 
+              title="Please Fill of All Fields Correctly First!"
+               [disabled]="f.invalid || password.value !== ConfirmePassword.value">Sign up</button>
+          </div>
+          <div class="col-6 text-center">
+            <div class="alert alert-danger" *ngIf="erromassege">ERR.. {{erromassege}}</div>
+            </div>
+          <div class="col-3 text-right">
+              <button type="button" class="btn btn-danger btn-lg" (click)="login_signUpwithGoogle()">google</button>
+          </div>
+      </div>
+      
+      
+  </form>
+  <br>
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>

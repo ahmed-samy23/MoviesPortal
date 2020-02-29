@@ -1,0 +1,35 @@
+import { StorageService } from './storage.service';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Movie } from '../interfaces/movie';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MovieService {
+
+  constructor(private DB:AngularFirestore,private storser:StorageService) {
+   }
+ // to add new movie...first add poster image to storage
+  addpostermovie(filename:string ,file ,metaData){
+    console.log('=======> waiting upload image')
+    return this.storser.Uploadimg(filename ,file ,metaData)
+  }
+ // secound add data of new movie with postarUrl to firstore
+  addmoviedata(moviedata){
+    console.log('=====> ready to send this object');
+    console.log(moviedata)
+    return this.DB.collection('movie/').add(moviedata)
+  }
+  //get all movies
+  getAllMovie(){
+    return this.DB.collection('movie').snapshotChanges();
+  }
+  //get movie by id
+  getMovieById(id:string){
+    return this.DB.doc('movie/'+id).snapshotChanges();
+  }
+  increamentMovieViews(id:string,views:number){
+    return this.DB.doc('movie/'+id).update({numviews : views+1})
+  }
+}

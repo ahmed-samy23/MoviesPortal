@@ -1,0 +1,48 @@
+
+  <div class="body">
+      <div class="row justify-content-center" style="padding-top: 5px;">
+        <!--==================== filter by type ===========================-->
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <select class="form-control" name="type" (change)="filter($event)">
+            <option value="0" disabled selected hidden>choose type for search</option>
+            <option value="0">All</option>
+            <option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>
+            </select>
+        </div>
+        <!--==================== search bar by name ===========================-->
+      <form class="form-inline my-2 my-lg-0" style="padding-left: 3px;">
+        <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
+        #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
+        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+      </form>
+      </div>
+      <div class="row">
+          <div class="cl col-12 col-md-6 col-lg-4" style="padding-top: 5px;" *ngFor="let m of movies">
+            <div class="card container">
+              <a [routerLink]="['/moviedetails',m.id]">
+                <img class="card-img-top moveimg" [src]="m.posterUrl" [alt]="m.title">
+              </a>
+                <div class="card-body">
+                  <h5 class="card-title"><a [routerLink]="['/moviedetails',m.id]" style="color: crimson;">{{m.title | titlecase}}</a></h5>
+                  <div class="row">
+                      <div class="col-sm-5">
+                      <mat-icon style="position: absolute;">remove_red_eye</mat-icon> <h6 style="padding-left: 25px;">{{m.numviews | number}}
+                        <small *ngIf="m.numviews > 999">K</small>
+                    </h6>
+                    </div>
+                    <div class="col-sm-7" style="padding-left: 35px;">
+                      <mat-icon style="position: absolute;">update</mat-icon><h6  style="padding-left: 25px; color: crimson;">{{m.publishdate | date}}</h6>
+                    </div>
+                  </div>
+                  <p class="card-text">{{m.descrition  | titlecase | slice :0 :90}}<span>.... <button type="button" 
+                    class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase" 
+                    popoverTitle="Description of {{m.title | titlecase}}">Read more</button></span>
+                </div>
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+    <ngb-pagination [collectionSize]="3" [page]="4" aria-label="Default pagination"></ngb-pagination>
+  </div>
+  </div>
