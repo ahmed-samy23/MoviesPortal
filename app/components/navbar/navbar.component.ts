@@ -1,3 +1,5 @@
+import { User } from './../../interfaces/user';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,8 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   isopen:boolean = false;
-
-  constructor(private authser:AuthenticationService) { }
+  isUser:boolean = false;
+  MyUser:User={};
+  constructor(private authser:AuthenticationService,private router:Router) { 
+    this.authser.user.subscribe(u =>{
+      if(u) {
+        this.isUser = true;
+        this.MyUser = this.authser.MyUser;
+      }
+      else this.isUser =false
+      })
+      console.log('isuser',this.isUser)
+  }
 
   ngOnInit() {
   }
@@ -18,5 +30,6 @@ export class NavbarComponent implements OnInit {
   }
   signOut(){
     this.authser.signout();
+    this.router.navigate(['']);
   }
 }

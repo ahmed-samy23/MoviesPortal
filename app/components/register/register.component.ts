@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
               this.authser.MyUser.email = result.user.email;
               this.authser.MyUser.type = 2;
               this.authser.MyUser.id =result.user.uid;
-              this.router.navigate(['/home']);
+              this.router.navigate(['/']);
               })
           }else{ // if user not exists in database, add data before login
             let name:string[] = result.user.displayName.split(' ')
@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
             }
             this.userser.addnewuser_googlePro(result.user.uid,newuser)
             window.alert('Thanks for joining us, Now you can login with your google acount')
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
                 }
             })
     })

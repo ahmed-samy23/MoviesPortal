@@ -10,11 +10,11 @@
             </select>
         </div>
         <!--==================== search bar by name ===========================-->
-      <form class="form-inline my-2 my-lg-0" style="padding-left: 3px;">
-        <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
-        #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
-        <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-      </form>
+        <form class="form-inline" style="padding-left: 3px;">
+          <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
+          #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
+          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+        </form>
       </div>
       <div class="row">
           <div class="cl col-12 col-md-6 col-lg-4" style="padding-top: 5px;" *ngFor="let m of movies">
@@ -34,7 +34,7 @@
                       <mat-icon style="position: absolute;">update</mat-icon><h6  style="padding-left: 25px; color: crimson;">{{m.publishdate | date}}</h6>
                     </div>
                   </div>
-                  <p class="card-text">{{m.descrition  | titlecase | slice :0 :90}}<span>.... <button type="button" 
+                  <p class="card-text">{{m.descrition  | titlecase | slice :0 :88}}<span>.... <button type="button" 
                     class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase" 
                     popoverTitle="Description of {{m.title | titlecase}}">Read more</button></span>
                 </div>

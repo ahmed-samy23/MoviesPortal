@@ -31,8 +31,6 @@
 }
 
 .btn {
-  background-color: crimson;
-  color: white;
   padding: 16px 20px;
   border: none;
   cursor: pointer;
@@ -41,9 +39,5 @@
 }
 
 .icon{
-  width: 40px
-}
-.icon:hover {
-  box-shadow: 0 0 2px 1px crimson;
-  
+  width: 20px
 }

@@ -1,16 +1,21 @@
-import { UserService } from './user.service';
 import { User } from './../interfaces/user';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-//https://www.positronx.io/send-verification-email-new-user-firebase-angular/
+
   MyUser:User={};
-  constructor(private Authinject:AngularFireAuth) { }
+  user:Observable<firebase.User>;
+  
+  constructor(private Authinject:AngularFireAuth) { 
+    this.user = this.Authinject.user;
+  }
+
   // =================================Sign in_up with email&password==================================
   signupWithEP(email:string,password:string){
     return this.Authinject.auth.createUserWithEmailAndPassword(email,password)
@@ -37,6 +42,11 @@ export class AuthenticationService {
   // =================================Sign in_up with google==================================
   signIn_UpGoogle(){
     var provider = new auth.GoogleAuthProvider();
+    return this.Authinject.auth.signInWithPopup(provider)
+  }
+  // =================================Sign in_up with Facebook==================================
+  signIn_UpFacebook(){
+    var provider = new auth.FacebookAuthProvider();
     return this.Authinject.auth.signInWithPopup(provider)
   }
   // ===================================================================

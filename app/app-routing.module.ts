@@ -1,3 +1,5 @@
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UpdateprofileComponent } from './components/updateprofile/updateprofile.component';
 import { MoviedetailsComponent } from './components/moviedetails/moviedetails.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
@@ -9,11 +11,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '' , component: LogInComponent},
-  { path: 'home' , component:  HomeComponent},
+  { path: '' , component: HomeComponent},
+  { path: 'signIn' , component:  LogInComponent},
   { path: 'addmovie' , component: AddmovieComponent},
-  { path: 'register' , component: RegisterComponent},
+  { path: 'signUp' , component: RegisterComponent},
   { path: 'moviedetails/:id' , component: MoviedetailsComponent},
+  { path: 'updateprofile/:id' , component: UpdateprofileComponent},
+  { path: 'dashboard' , component: DashboardComponent},
   { path: '**' , component: NotfoundComponent}
 ];
 
