@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'signUp' , component: RegisterComponent},
   { path: 'moviedetails/:id' , component: MoviedetailsComponent},
   { path: 'updateprofile/:id' , component: UpdateprofileComponent},
-  { path: 'dashboard' , component: DashboardComponent},
+  { path: 'dashboard/:id' , component: DashboardComponent},
   { path: '**' , component: NotfoundComponent}
 ];
 

@@ -19,8 +19,14 @@
       <div class="row">
           <div class="cl col-12 col-md-6 col-lg-4" style="padding-top: 5px;" *ngFor="let m of movies">
             <div class="card container">
-              <a [routerLink]="['/moviedetails',m.id]">
-                <img class="card-img-top moveimg" [src]="m.posterUrl" [alt]="m.title">
+              <a>
+                <img class="card-img-top moveimg" [src]="m.posterUrl" [alt]="m.title" [routerLink]="['/moviedetails',m.id]">
+                <div class="top-right" *ngIf="(isUser && MyUser.type == 1)">
+                  <button class="btn btn-outline" [routerLink]="['/dashboard',m.id]"><mat-icon style="color: crimson;">create</mat-icon></button>
+                </div>
+                <div class="top-left" *ngIf="(isUser && MyUser.type == 1)">
+                  <button class="btn btn-outline" (click)="deletemovie(m.id)"><mat-icon style="color: crimson;">delete</mat-icon></button>
+                </div>
               </a>
                 <div class="card-body">
                   <h5 class="card-title"><a [routerLink]="['/moviedetails',m.id]" style="color: crimson;">{{m.title | titlecase}}</a></h5>
@@ -36,7 +42,7 @@
                   </div>
                   <p class="card-text">{{m.descrition  | titlecase | slice :0 :88}}<span>.... <button type="button" 
                     class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase" 
-                    popoverTitle="Description of {{m.title | titlecase}}">Read more</button></span>
+                    popoverTitle="Description of {{m.title | titlecase}}" [autoClose]="true">Read more</button></span>
                 </div>
               </div>
         </div>

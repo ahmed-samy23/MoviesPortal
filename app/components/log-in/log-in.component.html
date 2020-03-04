@@ -23,7 +23,7 @@
             <button type="submit" class="btn mb-4 btn-danger" [disabled]="f.invalid"><span *ngIf="clickedEP" class="spinner-border spinner-border-sm"></span>
                 Sign in</button>
             
-            <button type="button" class="btn btn-light" [disabled]="f.invalid" (click)="login_signUpwithGoogle()"><span *ngIf="clickedgoogle" class="spinner-border spinner-border-sm"></span>
+            <button type="button" class="btn btn-light" (click)="login_signUpwithGoogle()"><span *ngIf="clickedgoogle" class="spinner-border spinner-border-sm"></span>
                 <img class="icon" src="./../assets/Imgs/icon-google.png"> Sign with Google</button>
             <!-- Register -->
             <p style="margin-top: 20px;">Not a member?

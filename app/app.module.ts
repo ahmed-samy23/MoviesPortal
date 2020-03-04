@@ -6,7 +6,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule , FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule,MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,6 +42,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatDialogModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyCmEqUolVt68d4ZfeFkFW7bI4tZmXxekWg",
       authDomain: "moviesportal-75c9e.firebaseapp.com",
@@ -55,6 +56,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule
+  ],
+  entryComponents: [
+    UpdateprofileComponent
   ],
   providers: [
     {provide: FirestoreSettingsToken , useValue: {}}

@@ -28,9 +28,20 @@
           <li class="nav-item" *ngIf="!isUser">
             <a class="nav-link centertoggle" routerLink="/signUp" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Sign Up</a>
           </li>
+
           <li class="nav-item text-center" *ngIf="isUser">
-            <button class="btn btn-danger" (click)="signOut()">LogOut</button>
-          </li>
+          <button type="button" class="btn btn-outline" [autoClose]="true" [ngbPopover]="popContent" [popoverTitle]="popTitle"
+                  style="width: 50px;height: 40px;">
+            <mat-icon style="color: crimson;">person_pin</mat-icon>
+          </button>
+          <ng-template #popTitle><p class="text-center"><b>{{MyUser.firstname}} {{MyUser.lastname}}</b></p></ng-template>
+          <ng-template #popContent>
+            <p class="text-center"><b>{{MyUser.email}}</b></p>
+            <p class="text-center" *ngIf="!MyUser.password">You sign with Google. So You Can`t Update password</p>
+            <button class="btn btn-light btn-block" *ngIf="MyUser.password" (click)="UpdatePassword()">Update Password</button>
+            <button class="btn btn-danger btn-block" (click)="signOut()" *ngIf="isUser">LogOut</button>
+          </ng-template>
+        </li>
         </ul>
       </div>
     </nav>

@@ -10,6 +10,7 @@ export class MovieService {
 
   constructor(private DB:AngularFirestore,private storser:StorageService) {
    }
+   //======================= add new movie Methods=========================================
  // to add new movie...first add poster image to storage
   addpostermovie(filename:string ,file ,metaData){
     console.log('=======> waiting upload image')
@@ -21,6 +22,7 @@ export class MovieService {
     console.log(moviedata)
     return this.DB.collection('movie/').add(moviedata)
   }
+  // ======================= Retrive movie/s Methods ======================================
   //get all movies
   getAllMovie(){
     return this.DB.collection('movie').snapshotChanges();
@@ -29,6 +31,12 @@ export class MovieService {
   getMovieById(id:string){
     return this.DB.doc('movie/'+id).snapshotChanges();
   }
+  // ======================= Update movie Method ==========================================
+  //update movie
+  updateMovie(id:string,newdata:Movie){
+    return this.DB.doc('movie/'+id).update(newdata);
+  }
+  // ======================= Other Method ==========================================
   increamentMovieViews(id:string,views:number){
     return this.DB.doc('movie/'+id).update({numviews : views+1})
   }

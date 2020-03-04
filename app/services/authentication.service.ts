@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+  isUser:boolean = false;
   MyUser:User={};
   user:Observable<firebase.User>;
   
@@ -38,6 +38,9 @@ export class AuthenticationService {
   }
   signInEP(email:string,password:string){
     return this.Authinject.auth.signInWithEmailAndPassword(email,password)
+  }
+  updateprofileofuser(){
+    this.Authinject.auth.currentUser.updatePassword('')
   }
   // =================================Sign in_up with google==================================
   signIn_UpGoogle(){

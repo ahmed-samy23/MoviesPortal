@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/authentication.service';
 import { TypemovieService } from './../../services/typemovie.service';
 import { MovieService } from './../../services/movie.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -15,9 +16,9 @@ export class MoviedetailsComponent implements OnInit,OnDestroy {
   mymovie:Movie = {};
   Url:any='';
   myMovieObservable:Subscription;
-  constructor(private route:ActivatedRoute,private movieser:MovieService,private typeser:TypemovieService) { 
+  constructor(private route:ActivatedRoute,private movieser:MovieService
+    ,private typeser:TypemovieService,private authser:AuthenticationService) { 
     this.movieId = this.route.snapshot.paramMap.get('id')
-    console.log("movieId " ,this.movieId)
     this.myMovieObservable = this.movieser.getMovieById(this.movieId).subscribe(data => {
         this.mymovie.title = data.payload.data()['title'],
         this.mymovie.descrition = data.payload.data()['descrition'],
@@ -41,11 +42,17 @@ export class MoviedetailsComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(){
-    this.movieser.increamentMovieViews(this.movieId,this.mymovie.numviews)
-    .then(() => {
+    if(this.authser.MyUser.type == 2){
+      this.movieser.increamentMovieViews(this.movieId,this.mymovie.numviews)
+          .then(() => {
+            this.myMovieObservable.unsubscribe();
+            console.log('updating done and subc un')
+          })
+    }else{
       this.myMovieObservable.unsubscribe();
-      console.log('updating done and subc un')
-    })
+      console.log('subc un')
+    }
+    
   }
 
 }

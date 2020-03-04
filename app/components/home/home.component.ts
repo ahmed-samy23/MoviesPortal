@@ -1,3 +1,5 @@
+import { AuthenticationService } from './../../services/authentication.service';
+import { User } from './../../interfaces/user';
 import { Movie } from './../../interfaces/movie';
 import { MovieService } from './../../services/movie.service';
 import { TypemovieService } from './../../services/typemovie.service';
@@ -13,13 +15,17 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   IsMore: boolean = false;
+  isUser:boolean = false;
+  MyUser:User={};
   movies:Array<Movie> =[];
   listShowMovies:Movie[] = this.movies;
   typesmovie:Array<Typemovie> = [];
   typeFillter:string = '0';
   searchkey:string='';
-  typeObservable:Subscription;movieObservable:Subscription;
-  constructor(private typeser:TypemovieService,private movieser:MovieService) {
+  typeObservable:Subscription;movieObservable:Subscription;userObservable:Subscription;
+
+  constructor(private typeser:TypemovieService,private movieser:MovieService,
+    private authser:AuthenticationService) {
     this.movieObservable = this.movieser.getAllMovie().subscribe( data =>{
       this.movies = data.map(m => {
         return{
@@ -39,8 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         ReleaseDate : new Date(m.payload.doc.data()['ReleaseDate'])
       }
       })
-      console.log('====> data from this.movies2');
-      console.log(this.movies);
     });
     this.typeObservable = this.typeser.getalltypesofmovies().subscribe( data => {
       this.typesmovie = data.map(d=>{
@@ -49,15 +53,21 @@ export class HomeComponent implements OnInit, OnDestroy {
           name : d.payload.doc.data()['name']
         }
       })
-      console.log('====> data from this.typesmovie');
-      console.log(this.typesmovie);
       });
+    this.userObservable = this.authser.user.subscribe(u =>{
+        if(u) {
+          this.isUser = true;
+          this.MyUser = this.authser.MyUser;
+        }
+        else this.isUser =false
+        })
   }
 
   ngOnInit() {
     let l:string = 'Jumanji: The Next Level(2019)'
     console.log("lenghtmax: ",l.length)
   }
+
   ngOnDestroy(){
     this.typeObservable.unsubscribe();
     this.movieObservable.unsubscribe();
@@ -97,5 +107,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   console.log('================ ================================== ===========');
   }
   
+  deletemovie(id:string){
+
+  }
   
 }

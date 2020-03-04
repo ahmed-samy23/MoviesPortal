@@ -6,3 +6,14 @@
     box-shadow: 0 0 2px 1px crimson;
     
   }
+  .top-right {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+  }
+  .top-left {
+    position: absolute;
+    top: 2px;
+    left: 5px;
+  }
+  
