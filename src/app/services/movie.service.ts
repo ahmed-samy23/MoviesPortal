@@ -36,6 +36,11 @@ export class MovieService {
   updateMovie(id:string,newdata:Movie){
     return this.DB.doc('movie/'+id).update(newdata);
   }
+  // ======================= Delete movie Method ==========================================
+  //delete movie
+  deleteMovie(id:string){
+    return this.DB.doc('movie/'+id).delete();
+  }
   // ======================= Other Method ==========================================
   increamentMovieViews(id:string,views:number){
     return this.DB.doc('movie/'+id).update({numviews : views+1})

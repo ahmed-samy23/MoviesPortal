@@ -21,17 +21,17 @@
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
   width: 70%;
-  margin-top: -25%;
+  position: absolute;
+  left: 15%;
+  top: 20%;
+  z-index: 1;
+  height: 450px;
+  overflow: auto;
 }
 
 .btn {
-  padding: 16px 20px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
   width: 100%;

@@ -11,7 +11,11 @@ export class UserService {
   constructor(private DB:AngularFirestore, private authser:AuthenticationService) { 
 
   }
-
+  // ======================= getById Method ==========================================
+  getUser(id:string){
+    return this.DB.doc('user/'+id).snapshotChanges();
+  }
+ // ======================= add new user Methods ==========================================
   addnewuser_EP(id:string ,userdata:User){
     userdata.type = 2;
     let newuser: User={
@@ -30,13 +34,21 @@ export class UserService {
     console.log(userdata)
     this.DB.doc('user/'+id).set(userdata);
   }
-
-  getUser(id:string){
-    return this.DB.doc('user/'+id).snapshotChanges();
+  // ======================= Update user Method ==========================================
+  updateuser(newuser:User){
+    return this.DB.doc('user/'+newuser.id).update(newuser)
+   
   }
-
+  // ======================= delete movie Method ==========================================
+  deleteuser(newuser:User){
+    return this.DB.doc('user/'+newuser.id).delete();
+  }
+  // ======================= other Method ==========================================
   ifExistUser(id:string){
     return this.DB.doc('user/'+id).get()
+  }
+  ifExistEmail(email:string){
+    return this.DB.collection('user').ref.where("email", "==", email).get();
   }
   
 }

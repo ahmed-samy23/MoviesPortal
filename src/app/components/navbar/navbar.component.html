@@ -10,11 +10,6 @@
           <li class="nav-item">
             <a class="nav-link centertoggle" routerLink="/" routerLinkActive="active"  [routerLinkActiveOptions]="{exact:true}">All Movies <span class="sr-only">(current)</span></a>
           </li>
-          <!-- *ngIf="(isUser && MyUser.type == 2)" centernav.css-->
-          <li class="nav-item">
-            <a class="nav-link centertoggle" [routerLink]="['/updateprofile',1]" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}">Account Settings<span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item" *ngIf="(isUser && MyUser.type == 1)">
             <a class="nav-link centertoggle" routerLink="/addmovie" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Add Movie</a>
           </li>
@@ -34,7 +29,7 @@
                   style="width: 50px;height: 40px;">
             <mat-icon style="color: crimson;">person_pin</mat-icon>
           </button>
-          <ng-template #popTitle><p class="text-center"><b>{{MyUser.firstname}} {{MyUser.lastname}}</b></p></ng-template>
+          <ng-template #popTitle><p class="text-center"><b>{{MyUser.firstname | titlecase}} {{MyUser.lastname}}</b></p></ng-template>
           <ng-template #popContent>
             <p class="text-center"><b>{{MyUser.email}}</b></p>
             <p class="text-center" *ngIf="!MyUser.password">You sign with Google. So You Can`t Update password</p>

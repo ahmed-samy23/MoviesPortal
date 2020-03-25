@@ -32,15 +32,12 @@ export class AuthenticationService {
     })
   }
   updateuserprofile(name:string){
-    this.Authinject.auth.currentUser.updateProfile({
+    return this.Authinject.auth.currentUser.updateProfile({
       displayName : name,
     })
   }
   signInEP(email:string,password:string){
     return this.Authinject.auth.signInWithEmailAndPassword(email,password)
-  }
-  updateprofileofuser(){
-    this.Authinject.auth.currentUser.updatePassword('')
   }
   // =================================Sign in_up with google==================================
   signIn_UpGoogle(){
@@ -52,9 +49,28 @@ export class AuthenticationService {
     var provider = new auth.FacebookAuthProvider();
     return this.Authinject.auth.signInWithPopup(provider)
   }
-  // ===================================================================
+  // ================================ Mtehod For update password ===================================
+  async reauthenticate(MyUser:User):Promise<firebase.User>{
+    let MycurrentUser: any = {};
+     await this.Authinject.auth.currentUser.
+       reauthenticateAndRetrieveDataWithCredential(auth.EmailAuthProvider.credential(MyUser.email, MyUser.password))
+      .then(()=>{
+        let m = this.Authinject.auth.currentUser;
+        MycurrentUser = m;
+      })
+      return MycurrentUser
+  }
+  //=========================================== Reset Password Mtehod ==================================================
+  ResetPassword(Email:string){
+    return this.Authinject.auth.sendPasswordResetEmail(Email);
+  }
+  //=========================================== delete Accuent Mtehod ==================================================
+  deleteAccuent(){
+    //re auth before
+    return this.Authinject.auth.currentUser.delete();
+  }
+  //===========================================Sign out Mtehod==================================================
   signout(){
     this.Authinject.auth.signOut()
-      console.log('SignOut: ')
   }
 }

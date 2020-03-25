@@ -1,0 +1,59 @@
+<h1 mat-dialog-title text-center>Hi, {{MyUser.firstname | titlecase}}</h1>
+
+<mat-dialog-content>
+  <form #f="ngForm">
+    <div class="form-group">
+      <label>Current Password: </label>
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">visibility_off</mat-icon></div>
+          </div>
+      <input #cpassword="ngModel" name="cpassword" ngModel type="password" class="form-control" placeholder="minimum 8 charctars" required>
+      </div>
+      <div class="alert alert-danger" *ngIf="cpassword.touched && (cpassword.errors?.required || cpassword.value !== MyUser.password)">
+        <div *ngIf="cpassword.errors?.required"> ERR...This Field is required, please enter your password </div>
+        <div *ngIf="cpassword.value !== MyUser.password"> ERR...Current Password is not matching </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>New Password: </label>
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">visibility_off</mat-icon></div>
+          </div>
+      <input #newpassword="ngModel" name="newpassword" ngModel type="password" class="form-control" placeholder="minimum 8 charctars" required minlength="8">
+      </div>
+      <div class="alert alert-danger" *ngIf="newpassword.touched && (newpassword.errors?.required || newpassword.errors?.minlength || newpassword.value == MyUser.password)">
+        <div *ngIf="newpassword.errors?.required"> ERR...This Field is required, please enter your password</div>
+        <div *ngIf="newpassword.errors?.minlength">
+          ERR...Your password must be at least {{newpassword.errors?.minlength.requiredLength}} charctars, but you entered {{newpassword.errors?.minlength.actualLength}} charctars
+        </div>
+        <div *ngIf="newpassword.value == MyUser.password"> ERR...A New Password is the same as a Current Password</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Confirme New Password: </label>
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">visibility_off</mat-icon></div>
+              </div>
+          <input #ConfirmePassword="ngModel" name="ConfirmePassword" ngModel type="password" class="form-control" placeholder="The same of password" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="ConfirmePassword.touched && (ConfirmePassword.errors?.required || ConfirmePassword.value !== newpassword.value)">
+            <div *ngIf="ConfirmePassword.errors?.required"> ERR...This Field is required, please Re-enter your password </div>
+            <div *ngIf="ConfirmePassword.value !== newpassword.value"> ERR...Passwords are not match...chick your passwords </div>
+          </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+
+  <div class="text-center" mat-dialog-actions>
+        <button type="submit" class="btn btn-outline-danger btn-lg" data-toggle="tooltip" 
+        title="Please Fill of All Fields Correctly First!"
+         [disabled]="f.invalid || newpassword.value !== ConfirmePassword.value || cpassword.value !== MyUser.password 
+         || newpassword.value == MyUser.password || isClicked" (click)="updateprofile(f)">Save</button>
+        <button type="button" class="btn btn-light btn-lg" (click)="onNoClick()"> No Thanks</button>
+  
+</div>
+
