@@ -12,5 +12,6 @@ export interface Movie {
     country?:string;
     ReleaseDate?:Date;
     writers?:string;
-    runtime?:number
+    runtime?:number;
+    imgname?:string
 }

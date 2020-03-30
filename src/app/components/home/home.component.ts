@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         numviews : m.payload.doc.data()['numviews'],
         country : m.payload.doc.data()['country'],
         writers : m.payload.doc.data()['writers'],
+        imgname : m.payload.doc.data()['imgname'],
         runtime : m.payload.doc.data()['runtime'],
         ReleaseDate : new Date(m.payload.doc.data()['ReleaseDate'])
       }
@@ -74,23 +75,25 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('subscription stops')
   }
   // =============== search methods =================================
+  clickedSearch:boolean = false;
   filter(e){
     this.typeFillter = e.target.value;
     this.search();
   }
   search(){
+    this.clickedSearch = true;
     this.listShowMovies = [];
     if (this.typeFillter == '0' && this.searchkey == '') {
       this.listShowMovies = this.movies;
     }else if (this.typeFillter != '0' && this.searchkey != ''){
       for (let index = 0; index < this.movies.length; index++) {
-        if(this.movies[index].type == this.typeFillter && this.movies[index].title.includes(this.searchkey)){
+        if(this.movies[index].type == this.typeFillter && this.movies[index].title.toLowerCase().includes(this.searchkey.toLowerCase())){
           this.listShowMovies.push(this.movies[index]);
         }
       }
     }else if (this.typeFillter == '0' && this.searchkey != ''){
       for (let index = 0; index < this.movies.length; index++) {
-        if(this.movies[index].title.includes(this.searchkey)){
+        if(this.movies[index].title.toLowerCase().includes(this.searchkey.toLowerCase())){
           this.listShowMovies.push(this.movies[index]);
         }
       }
@@ -102,13 +105,22 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.clickedSearch = false;
   console.log('================ this.listShowMovies ===========');
   console.log(this.listShowMovies);
   console.log('================ ================================== ===========');
   }
   
-  deletemovie(id:string){
-
+  deletemovie(DMovie:Movie){
+    console.log('my movie will delete',DMovie)
+    this.movieser.deleteMovie(DMovie.id)
+    .then(()=>{
+      console.log('delete from cloudstore')
+      this.movieser.Deletepostermovie(DMovie.imgname);
+      console.log('delete from storage')
+      window.alert(DMovie.title+' deleted successfuly')
+    })
+    .catch((err)=> console.log('err: ',err))
   }
   
 }

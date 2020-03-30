@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material';
 })
 export class NavbarComponent implements OnInit {
   isopen:boolean = false;
+  isdelete:boolean = false;
   isUser:boolean = false;
   MyUser:User={};
   constructor(private authser:AuthenticationService,private router:Router
@@ -21,18 +22,26 @@ export class NavbarComponent implements OnInit {
       if(u) {
         this.isUser = true;
         this.userser.getUser(u.uid).subscribe(myuser => {
-          this.authser.MyUser.id = u.uid;
-          this.authser.MyUser.firstname = myuser.payload.data()['firstname']
-          this.authser.MyUser.lastname = myuser.payload.data()['lastname']
-          this.authser.MyUser.type = myuser.payload.data()['type']
-          this.authser.MyUser.password = myuser.payload.data()['password']
-          this.authser.MyUser.email = myuser.payload.data()['email']
-          this.MyUser = this.authser.MyUser;
+          if(myuser.payload.data()){
+            this.authser.MyUser.id = u.uid;
+            this.authser.MyUser.firstname = myuser.payload.data()['firstname']
+            this.authser.MyUser.lastname = myuser.payload.data()['lastname']
+            this.authser.MyUser.type = myuser.payload.data()['type']
+            this.authser.MyUser.password = myuser.payload.data()['password']
+            this.authser.MyUser.email = myuser.payload.data()['email']
+            this.MyUser = this.authser.MyUser;
+          }else {
+            this.authser.signout(); // to when delete account and re load navebar
+            this.isUser =false
+          }
         })
       }
-      else this.isUser =false
+      else {
+        this.isUser =false
+      }
       })
       console.log('isuser',this.isUser)
+      console.log('this.authser.MyUser',this.authser.MyUser.id)
   }
 
   ngOnInit() {
@@ -40,10 +49,35 @@ export class NavbarComponent implements OnInit {
   togglenavbar(){
     this.isopen = !this.isopen
   }
+  toggleDeleteRow(){
+    this.isdelete = !this.isdelete
+  }
   UpdatePassword(){
     let dialogRef = this.dialoginj.open(UpdateprofileComponent,{
       width: '320px'
     });
+  }
+  async DeleteMyAccount(){
+    let MycurrentUser:firebase.User = await this.authser.reauthenticate(this.MyUser)
+    if(MycurrentUser){
+      let deletedUser:User = this.MyUser;
+      MycurrentUser.delete()
+      .then(()=>{
+        console.log('user deleted from Authentication')
+        console.log(deletedUser)
+        this.userser.deleteuser(deletedUser)
+        .then(()=> console.log('user deleted from cloud firestore'))
+        .catch((err)=>{
+          console.log('err in deleteuser',err)
+        })
+      })
+      .catch((err)=>{
+        console.log('err in delete',err)
+      })
+    }else{
+      console.log('err in reauthenticate: MycurrentUser: ');
+      console.log(MycurrentUser);
+    }
   }
   signOut(){
     this.authser.signout();

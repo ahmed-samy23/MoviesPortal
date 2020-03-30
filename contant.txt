@@ -1,0 +1,8 @@
+=> pages
+======================
+1. log in / sign in
+2. home page (after login user go to it to list all movies,search,fillter)
+3. details of movie (desplay special movie by id)
+4. add movies (after login admine do to home page,but with add movie button)
+5. notfount
+======= update user,delete movie,views of movies,update movie

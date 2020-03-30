@@ -29,12 +29,14 @@
                   style="width: 50px;height: 40px;">
             <mat-icon style="color: crimson;">person_pin</mat-icon>
           </button>
-          <ng-template #popTitle><p class="text-center"><b>{{MyUser.firstname | titlecase}} {{MyUser.lastname}}</b></p></ng-template>
+          <ng-template #popTitle><p class="text-center" style="padding-top: 15px;"><b>{{MyUser.firstname | titlecase}} {{MyUser.lastname}}</b></p></ng-template>
           <ng-template #popContent>
             <p class="text-center"><b>{{MyUser.email}}</b></p>
-            <p class="text-center" *ngIf="!MyUser.password">You sign with Google. So You Can`t Update password</p>
-            <button class="btn btn-light btn-block" *ngIf="MyUser.password" (click)="UpdatePassword()">Update Password</button>
-            <button class="btn btn-danger btn-block" (click)="signOut()" *ngIf="isUser">LogOut</button>
+            <p class="text-center" *ngIf="isUser && !MyUser.password">You sign with Google. So You Can`t Update password or Delete Account</p>
+            <button class="btn btn-light btn-block" *ngIf="isUser && MyUser.password" (click)="UpdatePassword()">Update Password</button>
+            <button class="btn btn-danger btn-block" (click)="DeleteMyAccount()" *ngIf="isUser && MyUser.password">Delete Account</button>
+            <small class="form-text text-muted" style="text-align: center;" *ngIf="isUser && MyUser.password">If clicked on Delete Account,Your account will be deleted directly.</small>
+            <button class="btn btn-primary btn-block" (click)="signOut()" *ngIf="isUser">LogOut</button>
           </ng-template>
         </li>
         </ul>

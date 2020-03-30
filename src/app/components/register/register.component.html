@@ -77,7 +77,8 @@
           <div class="col-3">
               <button type="submit" class="btn btn-outline-danger btn-lg btn-block" data-toggle="tooltip" 
               title="Please Fill of All Fields Correctly First!"
-               [disabled]="f.invalid || password.value !== ConfirmePassword.value">Sign up</button>
+               [disabled]="f.invalid || password.value !== ConfirmePassword.value || ClickedSignUp"><span *ngIf="ClickedSignUp"
+                class="spinner-border spinner-border-sm"></span>Sign up</button>
           </div>
           <div class="col-3 text-center">
               <button type="button" class="btn btn-light btn-block btn-lg" (click)="login_signUpwithGoogle()">

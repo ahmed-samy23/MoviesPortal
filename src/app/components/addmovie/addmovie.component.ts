@@ -35,8 +35,9 @@ export class AddmovieComponent implements OnInit {
     let date:string=new Date().toLocaleString().split(',')[0];
     console.log('now date: ',date)
   }
-
+  ClickedAdd:boolean = false;
   addnewmovie(form:NgForm){
+    this.ClickedAdd = true;
     window.alert('The add process will take a little time..please wait');
     let movdata : Movie = form.value;
     console.log('====> movdata values component');
@@ -45,17 +46,19 @@ export class AddmovieComponent implements OnInit {
       .then(result => {
         result.task.snapshot.ref.getDownloadURL().then( downloadURL => {
         movdata.posterUrl = downloadURL;
-        movdata.publishdate as unknown as string ;
         let date:string=(new Date().toLocaleString().split(',')[0]) as string;
         movdata.publishdate = date;
+        movdata.imgname = this.imgname;
         movdata.numviews = 1;
         console.log('dataofmovie ==> ',movdata);
         this.movieser.addmoviedata(movdata)
           .then(() => {
             form.reset();
+            this.ClickedAdd = false;
             window.alert(movdata.title +' added seccusfully to MoviesPortal');
           })
           .catch(err => {
+            this.ClickedAdd = false;
             window.alert('An unexpected error occurred..please try again '+ err.message);
           })
         }).catch(err => {

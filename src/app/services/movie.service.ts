@@ -37,6 +37,11 @@ export class MovieService {
     return this.DB.doc('movie/'+id).update(newdata);
   }
   // ======================= Delete movie Method ==========================================
+  // to add new movie...first add poster image to storage
+  Deletepostermovie(filename:string){
+    console.log('=======> waiting Deleting image')
+    return this.storser.DeleteImg(filename)
+  }
   //delete movie
   deleteMovie(id:string){
     return this.DB.doc('movie/'+id).delete();

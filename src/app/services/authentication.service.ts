@@ -72,5 +72,7 @@ export class AuthenticationService {
   //===========================================Sign out Mtehod==================================================
   signout(){
     this.Authinject.auth.signOut()
+    .then(() => console.log('sign out done'))
+    .catch((err) => console.log('sign out err: ',err))
   }
 }

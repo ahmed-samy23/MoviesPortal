@@ -12,4 +12,8 @@ export class StorageService {
   Uploadimg(name:string,scrimg,metaData){
     return this.DBstor.upload('Imgs/'+name,scrimg,metaData);
   }
+
+  DeleteImg(imgname:string){
+    return this.DBstor.ref('Imgs/'+imgname).delete();
+  }
 }

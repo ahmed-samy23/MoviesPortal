@@ -1,6 +1,7 @@
 
   <div class="body">
       <div class="row justify-content-center" style="padding-top: 5px;">
+        
         <!--==================== filter by type ===========================-->
         <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
           <select class="form-control" name="type" (change)="filter($event)">
@@ -9,11 +10,11 @@
             <option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>
             </select>
         </div>
+        <span *ngIf="clickedSearch" class="spinner-border spinner-border-sm"></span>
         <!--==================== search bar by name ===========================-->
         <form class="form-inline" style="padding-left: 3px;">
           <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
           #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
-          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
         </form>
       </div>
       <div class="row">
@@ -25,7 +26,7 @@
                   <button class="btn btn-outline" [routerLink]="['/dashboard',m.id]"><mat-icon style="color: crimson;">create</mat-icon></button>
                 </div>
                 <div class="top-left" *ngIf="(isUser && MyUser.type == 1)">
-                  <button class="btn btn-outline" (click)="deletemovie(m.id)"><mat-icon style="color: crimson;">delete</mat-icon></button>
+                  <button class="btn btn-outline" (click)="deletemovie(m)"><mat-icon style="color: crimson;">delete</mat-icon></button>
                 </div>
               </a>
                 <div class="card-body">

@@ -31,6 +31,7 @@ export class MoviedetailsComponent implements OnInit,OnDestroy {
         this.mymovie.country = data.payload.data()['country'],
         this.mymovie.writers = data.payload.data()['writers'],
         this.mymovie.runtime = data.payload.data()['runtime'],
+        this.mymovie.imgname = data.payload.data()['imgname'],
         this.mymovie.ReleaseDate = new Date(data.payload.data()['ReleaseDate']),
         this.typeser.getTypeById(data.payload.data()['type']).subscribe(type => {
           this.mymovie.type = type.payload.data()['name']

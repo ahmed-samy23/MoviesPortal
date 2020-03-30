@@ -155,7 +155,8 @@
     </div>
       <div class="row justify-content-center">
         <button type="submit" class="btn btn-outline-danger btn-lg btn-block" data-toggle="tooltip" 
-        title="Please Fill of All Fields Correctly First!" [disabled]="f.invalid || isposter || pattern">Add movie</button> 
+        title="Please Fill of All Fields Correctly First!" [disabled]="f.invalid || isposter || pattern 
+        || ClickedAdd"><span *ngIf="ClickedAdd" class="spinner-border spinner-border-sm"></span>Add movie</button> 
       
       </div>  
   </form>

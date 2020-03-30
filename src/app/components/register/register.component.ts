@@ -17,17 +17,20 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit() {
   }
-  
+  ClickedSignUp:boolean = false;
   signupWithEP(form: NgForm){
     let userdata : User = form.value
+    this.ClickedSignUp = true
     this.authser.signupWithEP(userdata.email,userdata.password)
     .then(result => {
       this.erromassege = '';
       this.userser.addnewuser_EP(result.user.uid,userdata);
       window.alert('Thanks for joining us, Now you can login and verificate your email')
+      this.ClickedSignUp = false
       this.router.navigate(['']);
     })
     .catch(error => {
+      this.ClickedSignUp = false
       this.erromassege = error.message;
     })
   }

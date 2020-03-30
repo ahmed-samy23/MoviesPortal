@@ -41,6 +41,7 @@ export class UserService {
   }
   // ======================= delete movie Method ==========================================
   deleteuser(newuser:User){
+    console.log('in user sevice',newuser)
     return this.DB.doc('user/'+newuser.id).delete();
   }
   // ======================= other Method ==========================================
