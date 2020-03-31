@@ -1,55 +1,84 @@
+<div class="body">
+  <div class="row justify-content-center" style="padding-top: 5px;">
 
-  <div class="body">
-      <div class="row justify-content-center" style="padding-top: 5px;">
-        
-        <!--==================== filter by type ===========================-->
-        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-          <select class="form-control" name="type" (change)="filter($event)">
-            <option value="0" disabled selected hidden>choose type for search</option>
-            <option value="0">All</option>
-            <option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>
-            </select>
-        </div>
-        <span *ngIf="clickedSearch" class="spinner-border spinner-border-sm"></span>
-        <!--==================== search bar by name ===========================-->
-        <form class="form-inline" style="padding-left: 3px;">
-          <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
-          #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
-        </form>
-      </div>
-      <div class="row">
-          <div class="cl col-12 col-md-6 col-lg-4" style="padding-top: 5px;" *ngFor="let m of movies">
-            <div class="card container">
-              <a>
-                <img class="card-img-top moveimg" [src]="m.posterUrl" [alt]="m.title" [routerLink]="['/moviedetails',m.id]">
-                <div class="top-right" *ngIf="(isUser && MyUser.type == 1)">
-                  <button class="btn btn-outline" [routerLink]="['/dashboard',m.id]"><mat-icon style="color: crimson;">create</mat-icon></button>
-                </div>
-                <div class="top-left" *ngIf="(isUser && MyUser.type == 1)">
-                  <button class="btn btn-outline" (click)="deletemovie(m)"><mat-icon style="color: crimson;">delete</mat-icon></button>
-                </div>
-              </a>
-                <div class="card-body">
-                  <h5 class="card-title"><a [routerLink]="['/moviedetails',m.id]" style="color: crimson;">{{m.title | titlecase}}</a></h5>
-                  <div class="row">
-                      <div class="col-sm-5">
-                      <mat-icon style="position: absolute;">remove_red_eye</mat-icon> <h6 style="padding-left: 25px;">{{m.numviews | number}}
-                        <small *ngIf="m.numviews > 999">K</small>
-                    </h6>
-                    </div>
-                    <div class="col-sm-7" style="padding-left: 35px;">
-                      <mat-icon style="position: absolute;">update</mat-icon><h6  style="padding-left: 25px; color: crimson;">{{m.publishdate | date}}</h6>
-                    </div>
-                  </div>
-                  <p class="card-text">{{m.descrition  | titlecase | slice :0 :88}}<span>.... <button type="button" 
-                    class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase" 
-                    popoverTitle="Description of {{m.title | titlecase}}" [autoClose]="true">Read more</button></span>
-                </div>
-              </div>
-        </div>
+    <!--==================== filter by type ===========================-->
+    <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <select style="text-align: center;" class="form-control" name="type" (change)="sortBy($event)">
+        <option value="0" disabled selected hidden>Sort By</option>
+        <option value="1">sortBy Name</option>
+        <option value="2">sortBy Views</option>
+        <option value="3">sortBy Last upload</option>
+        <!--<option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>-->
+      </select>
     </div>
-    <br>
-    <div class="row justify-content-center">
-    <ngb-pagination [collectionSize]="3" [page]="4" aria-label="Default pagination"></ngb-pagination>
+    <div style="padding-left: 3px;" class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <select class="form-control" name="type" (change)="filter($event)">
+        <option value="0" disabled selected hidden>choose type for search</option>
+        <option value="0">All</option>
+        <option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>
+      </select>
+    </div>
+    <!--==================== search bar by name ===========================-->
+    <form class="form-inline" style="padding-left: 3px;">
+      <input #keysearch class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
+        #keysearch="ngModel" [(ngModel)]="searchkey" name="keysearch" (keyup)="search()">
+    </form>
   </div>
+  <!--==================== loading-spinner ===========================-->
+  <div class="text-center loading-spinner" *ngIf="loading">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status"></div>
+    <strong>Loading...</strong>
   </div>
+  <!--==================== List of movies ===========================-->
+  <div class="row" *ngIf="this.listShowMovies.length !== 0" [style.opacity]="loading? '0.25':'1' ">
+    <div class="cl col-12 col-md-6 col-lg-4" style="padding-top: 5px;" *ngFor="let m of listofmovies">
+      <div class="card container">
+        <a>
+          <img class="card-img-top moveimg" [src]="m.posterUrl" [alt]="m.title" [routerLink]="['/moviedetails',m.id]">
+          <div class="top-right" *ngIf="(isUser && MyUser.type == 1)">
+            <button class="btn btn-outline" [routerLink]="['/dashboard',m.id]">
+              <mat-icon style="color: crimson;">create</mat-icon>
+            </button>
+          </div>
+          <div class="top-left" *ngIf="(isUser && MyUser.type == 1)">
+            <button class="btn btn-outline" (click)="deletemovie(m)">
+              <mat-icon style="color: crimson;">delete</mat-icon>
+            </button>
+          </div>
+        </a>
+        <div class="card-body">
+          <h5 class="card-title"><a [routerLink]="['/moviedetails',m.id]"
+              style="color: crimson;">{{m.title | titlecase}}</a></h5>
+          <div class="row">
+            <div class="col-sm-5">
+              <mat-icon style="position: absolute;">remove_red_eye</mat-icon>
+              <h6 style="padding-left: 25px;">{{m.numviews | number}}
+                <small *ngIf="m.numviews > 999">K</small>
+              </h6>
+            </div>
+            <div class="col-sm-7" style="padding-left: 35px;">
+              <mat-icon style="position: absolute;">update</mat-icon>
+              <h6 style="padding-left: 25px; color: crimson;">{{m.publishdate | date}}</h6>
+            </div>
+          </div>
+          <p class="card-text">{{m.descrition  | titlecase | slice :0 :88}}<span>.... <button type="button"
+                class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase"
+                popoverTitle="Description of {{m.title | titlecase}}" [autoClose]="true">Read more</button></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--==================== Validations for page ===========================-->
+  <div class="borderdiv" *ngIf="this.listShowMovies.length === 0 && !loading">
+    <div class="alert-danger header">
+      <h1 class="h">Oooooops, Sorry</h1>
+      <p class="p">No Movies identically to show. May be occured error in your network, or No Movies identically to
+        search keys. Please, try again.</p>
+    </div>
+  </div>
+  <!--==================== pagination for movies list ===========================-->
+  <br>
+  <div class="d-flex justify-content-center p-2" [class.paginationbuttom]="this.listShowMovies.length === 0">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+  </div>
+</div>

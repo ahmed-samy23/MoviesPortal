@@ -1,7 +1,7 @@
-label{
-    color: crimson;
-}
-img{
-    height: 400px;
-    width: 350px;
-}
+
+.loading-spinner {
+    position: absolute;
+    left: 680px;
+    top: 80px;
+    z-index: -1;
+  }

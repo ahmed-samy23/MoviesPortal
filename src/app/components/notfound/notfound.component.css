@@ -1,0 +1,18 @@
+.borderdiv{
+    border: 1px solid crimson !important;
+    border-radius: 16px;
+    margin-top: 200px;
+}
+.header{
+    border: 1px solid crimson !important;
+    border-radius: 16px;
+    height: 100px;
+}
+.h{
+    text-align: center;
+    padding-top: 10px
+}
+.p{
+    text-align: center;
+    color:crimson;
+}
