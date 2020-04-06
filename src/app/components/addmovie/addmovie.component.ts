@@ -1,3 +1,5 @@
+import { User } from './../../interfaces/user';
+import { AuthenticationService } from './../../services/authentication.service';
 import { MovieService } from './../../services/movie.service';
 import { StorageService } from './../../services/storage.service';
 import { TypemovieService } from './../../services/typemovie.service';
@@ -19,8 +21,10 @@ export class AddmovieComponent implements OnInit {
   imgfile = null;
   imgname:string = '';
   metaData = {};
+  MyUser:User = {};
   constructor(private typeser:TypemovieService
-    ,private movieser:MovieService) { 
+    ,private movieser:MovieService,private authser:AuthenticationService) { 
+      this.MyUser = this.authser.MyUser
     this.typeser.getalltypesofmovies().subscribe( data => {
       this.typesmovie = data.map(d=>{
         return{

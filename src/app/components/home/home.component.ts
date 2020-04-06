@@ -6,7 +6,7 @@ import { TypemovieService } from './../../services/typemovie.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Typemovie } from 'src/app/interfaces/typemovie';
 import { Subscription } from 'rxjs';
-
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   typeFillter: string = '0';
   searchkey: string = '';
   page = 1;
-  pageSize = 3;
+  pageSize = 9;
   collectionSize: number;
   typeObservable: Subscription; movieObservable: Subscription; userObservable: Subscription;
 
@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (u) {
         this.isUser = true;
         this.MyUser = this.authser.MyUser;
+        console.log('this.MyUser5',this.MyUser)
       }
       else this.isUser = false
     })
@@ -123,7 +124,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
           // equal
           return 0;
-        }).reverse();
+        })
         console.log(value)
         break;
       case '2':

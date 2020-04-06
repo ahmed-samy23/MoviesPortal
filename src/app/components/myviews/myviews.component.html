@@ -1,0 +1,29 @@
+<br>
+<!--==================== loading-spinner ===========================-->
+<div class="text-center loading-spinner" *ngIf="loading">
+  <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status"></div>
+  <strong>Loading...</strong>
+</div>
+<!--==================== Contant of page ===========================-->
+<div *ngIf="this.mymovie.length !== 0" [style.opacity]="loading? '0.25':'1' ">
+  <div class="media border p-3" *ngFor="let movie of mymovie">
+    <img [src]="movie.posterUrl" [alt]="movie.title" class="mr-1 rounded-circle" style="width: 100px;
+    height: 90px;">
+    <div class="media-body">
+      <h4><a [routerLink]="['/moviedetails',movie.id]" style="color: crimson;">{{movie.title | titlecase}}</a><small><i> Posted on
+            {{movie.publishdate | date}}</i></small></h4>
+      <div>
+        <p>{{movie.superstare | titlecase}} <br>{{movie.runtime}} min | {{movie.type | titlecase}} |
+          {{movie.ReleaseDate | date}} ({{movie.country | uppercase}})</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--==================== Validations for page ===========================-->
+<div class="borderdiv" *ngIf="this.mymovie.length === 0 && !loading">
+  <div class="alert-danger header">
+    <h1 class="h">No Views history</h1>
+    <p class="p">May be occured error in your network, or you don`t view any movie yet. 
+      Please, <a routerLink="">Choose a movie</a> that you want view or try again.</p>
+  </div>
+</div>

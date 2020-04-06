@@ -1,4 +1,5 @@
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { IsloginguardService } from './guards/isloginguard.service';
+import { MyviewsComponent } from './components/myviews/myviews.component';
 import { UpdateprofileComponent } from './components/updateprofile/updateprofile.component';
 import { MoviedetailsComponent } from './components/moviedetails/moviedetails.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -11,14 +12,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: '' , component: HomeComponent},
-  { path: 'signIn' , component:  LogInComponent},
+  { path: '' , component: HomeComponent}, // not guard
+  { path: 'signIn' , component:  LogInComponent ,canActivate:[IsloginguardService]}, // if log in => false to home
   { path: 'addmovie' , component: AddmovieComponent},
-  { path: 'signUp' , component: RegisterComponent},
-  { path: 'moviedetails/:id' , component: MoviedetailsComponent},
+  { path: 'signUp' , component: RegisterComponent ,canActivate:[IsloginguardService]}, // if log in => false to home
+  { path: 'moviedetails/:id' , component: MoviedetailsComponent}, // not guard
   { path: 'updateprofile/:id' , component: UpdateprofileComponent},
-  { path: 'dashboard' , component: DashboardComponent},
-  { path: '**' , component: NotfoundComponent}
+  { path: 'MyViews' , component: MyviewsComponent},
+  { path: '**' , component: NotfoundComponent} // not guard
 ];
 
 @NgModule({

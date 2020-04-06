@@ -1,69 +1,81 @@
 <div class="body">
     <br>
-        <div class="row justify-content-center">
-          <div class="span2" style="text-align: center;">
+    <!--==================== loading-spinner ===========================-->
+    <div class="text-center loading-spinner" *ngIf="loading">
+        <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status"></div>
+        <strong>Loading...</strong>
+    </div>
+    <!--==================== content of page ===========================-->
+    <div class="row justify-content-center" [style.opacity]="loading? '0.25':'1' ">
+        <div class="span2" style="text-align: center;">
             <img class="imgsize rounded-circle" [src]="mymovie.posterUrl">
         </div>
         <div class="span10" style="width: 65%; padding-left: 10px;">
-            <br><div class="row">
-                <h2 class="col-sm-6"  style="text-align: center;">{{mymovie.title | titlecase}}</h2>
-                    <div class="col-sm-6">
-                        <mat-icon style="position: absolute;">update</mat-icon><h6 style="color: crimson;padding-left: 25px;">{{mymovie.publishdate|date}}</h6>
-                        <mat-icon style="position: absolute;">remove_red_eye</mat-icon> <h6 style="padding-left: 25px;">{{mymovie.numviews}}
-                            <small *ngIf="mymovie.numviews > 999">K</small>({{mymovie.runtime}} min)</h6>
-                    </div>
+            <br>
+            <div class="row">
+                <h2 class="col-sm-6" style="text-align: center;">{{mymovie.title | titlecase}}</h2>
+                <div class="col-sm-6">
+                    <mat-icon style="position: absolute;">update</mat-icon>
+                    <h6 style="color: crimson;padding-left: 25px;">{{mymovie.publishdate|date}}</h6>
+                    <mat-icon style="position: absolute;">remove_red_eye</mat-icon>
+                    <h6 style="padding-left: 25px;">{{mymovie.numviews}}
+                        <small *ngIf="mymovie.numviews > 999">K</small>({{mymovie.runtime}} min)</h6>
+                </div>
             </div>
             <div>
-            <table class="table table-striped">
-                <tbody>
-                    <tr>
-                        <th scope="col">Country </th>
-                        <td>{{mymovie.country}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Type </th>
-                        <td>{{mymovie.type|titlecase}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Director </th>
-                        <td>{{mymovie.director|titlecase}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Writers </th>
-                        <td>{{mymovie.writers|titlecase}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Super stars </th>
-                        <td>{{mymovie.superstare|titlecase}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="col">Release Date </th>
-                        <td>{{mymovie.ReleaseDate|date}}</td>
-                    </tr>
-                </tbody>
-            </table>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="col">Country </th>
+                            <td>{{mymovie.country}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Type </th>
+                            <td>{{mymovie.type|titlecase}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Director </th>
+                            <td>{{mymovie.director|titlecase}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Writers </th>
+                            <td>{{mymovie.writers|titlecase}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Super stars </th>
+                            <td>{{mymovie.superstare|titlecase}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Release Date </th>
+                            <td>{{mymovie.ReleaseDate|date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <br>
     <div class="card">
         <div class="desc" style="padding: 10px;">
-           <h4> Storyline </h4>
+            <h4> Storyline </h4>
         </div>
         <div style="padding: 10px;">
             <p>{{mymovie.descrition}}</p>
-         </div>
+        </div>
     </div>
     <br>
     <div class="card">
         <div class="desc" style="padding: 10px;">
-           <h4> Watch the movie trailer </h4>
+            <h4> Watch the movie trailer </h4>
         </div>
         <div style="text-align: center; padding-bottom: 10px; padding-top: 10px;">
-            <iframe width="560" height="315" [src]="mymovie.trailerUrl | safe" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" [src]="mymovie.trailerUrl | safe" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" alt="loading-spinner"
+                class="iframeframe"allowfullscreen></iframe>
         </div>
     </div>
-    <br><!--
+    <br>
+    <!--
     <div class="card">
         <div class="desc" style="padding: 10px;">
            <h4> Evaluation of movie </h4>

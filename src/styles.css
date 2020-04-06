@@ -2,3 +2,33 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  /*============== Loading data spinner ===================*/
+  .loading-spinner {
+    position: absolute;
+    left: 680px;
+    top: 110px;
+    z-index: 1;
+  }
+
+  .iframeframe { 
+    background-image: url("/../assets/Imgs/loading-animation.gif");
+  }
+
+  .borderdiv{
+    border: 1px solid crimson !important;
+    border-radius: 16px;
+    margin-top: 200px;
+}
+.header{
+    border: 1px solid crimson !important;
+    border-radius: 16px;
+    height: 100px;
+}
+.h{
+    text-align: center;
+    padding-top: 10px
+}
+.p{
+    text-align: center;
+    color:crimson;
+}

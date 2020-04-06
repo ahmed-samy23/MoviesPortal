@@ -19,7 +19,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { UpdateprofileComponent } from './components/updateprofile/updateprofile.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MyviewsComponent } from './components/myviews/myviews.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     SafePipe,
     UpdateprofileComponent,
-    DashboardComponent
+    MyviewsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +44,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatDialogModule,
+    HttpClientModule,
     AngularFireModule.initializeApp({
       apiKey: "AIzaSyCmEqUolVt68d4ZfeFkFW7bI4tZmXxekWg",
       authDomain: "moviesportal-75c9e.firebaseapp.com",

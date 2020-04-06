@@ -13,9 +13,8 @@
           <li class="nav-item" *ngIf="(isUser && MyUser.type == 1)">
             <a class="nav-link centertoggle" routerLink="/addmovie" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Add Movie</a>
           </li>
-          <!-- *ngIf="(isUser && MyUser.type == 1)" -->
-          <li class="nav-item">
-            <a class="nav-link centertoggle" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Dashboard</a>
+          <li class="nav-item" *ngIf="(isUser && MyUser.type == 2)">
+            <a class="nav-link centertoggle" routerLink="/MyViews" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">My Views</a>
           </li>
           <li class="nav-item" *ngIf="!isUser">
             <a class="nav-link centertoggle" routerLink="/signIn" routerLinkActive="active"  [routerLinkActiveOptions]="{exact:true}">Sign In</a>

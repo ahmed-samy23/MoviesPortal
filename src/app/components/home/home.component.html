@@ -8,10 +8,10 @@
         <option value="1">sortBy Name</option>
         <option value="2">sortBy Views</option>
         <option value="3">sortBy Last upload</option>
-        <!--<option *ngFor="let t of typesmovie" [value]="t.id">{{t.name | titlecase}}</option>-->
       </select>
     </div>
-    <div style="padding-left: 3px;" class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+    <div style="padding-left: 3px;" class="btn-group" ngbDropdown role="group"
+      aria-label="Button group with nested dropdown">
       <select class="form-control" name="type" (change)="filter($event)">
         <option value="0" disabled selected hidden>choose type for search</option>
         <option value="0">All</option>
@@ -61,9 +61,10 @@
               <h6 style="padding-left: 25px; color: crimson;">{{m.publishdate | date}}</h6>
             </div>
           </div>
-          <p class="card-text">{{m.descrition  | titlecase | slice :0 :88}}<span>.... <button type="button"
+          <p class="card-text" style="text-align: center;">{{m.descrition  | titlecase | slice :0 :100}}...
+            <!--<button type="button"
                 class="btn btn-outline-secondary mr-2" [ngbPopover]="m.descrition | titlecase"
-                popoverTitle="Description of {{m.title | titlecase}}" [autoClose]="true">Read more</button></span>
+                popoverTitle="Description of {{m.title | titlecase}}">Read more</button>-->
         </div>
       </div>
     </div>

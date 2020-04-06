@@ -18,10 +18,10 @@ export class NavbarComponent implements OnInit {
   MyUser:User={};
   constructor(private authser:AuthenticationService,private router:Router
     ,private userser:UserService,private dialoginj:MatDialog) { 
-    this.authser.user.subscribe(u =>{
+    this.authser.user.subscribe(async (u) =>{
       if(u) {
         this.isUser = true;
-        this.userser.getUser(u.uid).subscribe(myuser => {
+        await this.userser.getUser(u.uid).subscribe(myuser => {
           if(myuser.payload.data()){
             this.authser.MyUser.id = u.uid;
             this.authser.MyUser.firstname = myuser.payload.data()['firstname']
@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
             this.authser.MyUser.password = myuser.payload.data()['password']
             this.authser.MyUser.email = myuser.payload.data()['email']
             this.MyUser = this.authser.MyUser;
+            console.log('this.authser.MyUser',this.authser.MyUser.id)
           }else {
             this.authser.signout(); // to when delete account and re load navebar
             this.isUser =false
@@ -41,7 +42,6 @@ export class NavbarComponent implements OnInit {
       }
       })
       console.log('isuser',this.isUser)
-      console.log('this.authser.MyUser',this.authser.MyUser.id)
   }
 
   ngOnInit() {
