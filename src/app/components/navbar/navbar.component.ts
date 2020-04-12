@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit {
             this.authser.MyUser.password = myuser.payload.data()['password']
             this.authser.MyUser.email = myuser.payload.data()['email']
             this.MyUser = this.authser.MyUser;
-            console.log('this.authser.MyUser',this.authser.MyUser.id)
           }else {
             this.authser.signout(); // to when delete account and re load navebar
             this.isUser =false
@@ -41,7 +40,6 @@ export class NavbarComponent implements OnInit {
         this.isUser =false
       }
       })
-      console.log('isuser',this.isUser)
   }
 
   ngOnInit() {
@@ -63,8 +61,6 @@ export class NavbarComponent implements OnInit {
       let deletedUser:User = this.MyUser;
       MycurrentUser.delete()
       .then(()=>{
-        console.log('user deleted from Authentication')
-        console.log(deletedUser)
         this.userser.deleteuser(deletedUser)
         .then(()=> console.log('user deleted from cloud firestore'))
         .catch((err)=>{

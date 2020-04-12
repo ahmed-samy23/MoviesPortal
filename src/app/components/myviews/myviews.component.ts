@@ -1,5 +1,4 @@
 import { User } from './../../interfaces/user';
-import { async } from '@angular/core/testing';
 import { TypemovieService } from './../../services/typemovie.service';
 import { MovieService } from './../../services/movie.service';
 import { Views } from './../../interfaces/views';
@@ -28,7 +27,6 @@ export class MyviewsComponent implements OnInit, OnDestroy {
       this.userObservable = this.authser.user.subscribe( u => {
         if (u) {
           this.MyUser = this.authser.MyUser;
-          console.log('this.MyUser5', this.MyUser.firstname)
           this.viewObservable = this.viewser.getviewsofuser(this.MyUser.id).onSnapshot(async (querySnapshot) => {
             this.myviews = []
             let lastview: Views = {};
@@ -40,12 +38,9 @@ export class MyviewsComponent implements OnInit, OnDestroy {
               lastview = {};
             })
             this.retriveMovie()
-            console.log(this.myviews)
-            console.log(this.mymovie)
           })
         }
       })
-    console.log('id2: ',this.authser.MyUser.id)
   }
 
   ngOnInit() {
@@ -57,7 +52,9 @@ export class MyviewsComponent implements OnInit, OnDestroy {
   //================================= init Data Method ===================================
   retriveMovie() {
     let movies: Movie[] = []
-    console.log('in retriveMovie', this.myviews)
+    if(this.myviews.length == 0){
+      this.loading = false;
+    }else {
     for (let index = 0; index < this.myviews.length; index++) {
       let movie: Movie = {}
       this.movser.getMovieById(this.myviews[index].movieid).subscribe(async (data) => {
@@ -82,6 +79,7 @@ export class MyviewsComponent implements OnInit, OnDestroy {
           })
       })
     }
+  }
     this.mymovie = movies
   }
 

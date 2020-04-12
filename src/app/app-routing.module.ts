@@ -1,3 +1,5 @@
+import { IsuserguardService } from './guards/isuserguard.service';
+import { IsadminguardService } from './guards/isadminguard.service';
 import { IsloginguardService } from './guards/isloginguard.service';
 import { MyviewsComponent } from './components/myviews/myviews.component';
 import { UpdateprofileComponent } from './components/updateprofile/updateprofile.component';
@@ -14,11 +16,10 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '' , component: HomeComponent}, // not guard
   { path: 'signIn' , component:  LogInComponent ,canActivate:[IsloginguardService]}, // if log in => false to home
-  { path: 'addmovie' , component: AddmovieComponent},
+  { path: 'addmovie' , component: AddmovieComponent ,canActivate:[IsadminguardService]}, // if not admin => false to home
   { path: 'signUp' , component: RegisterComponent ,canActivate:[IsloginguardService]}, // if log in => false to home
   { path: 'moviedetails/:id' , component: MoviedetailsComponent}, // not guard
-  { path: 'updateprofile/:id' , component: UpdateprofileComponent},
-  { path: 'MyViews' , component: MyviewsComponent},
+  { path: 'MyViews' , component: MyviewsComponent ,canActivate:[IsuserguardService]}, // if not user => false to home
   { path: '**' , component: NotfoundComponent} // not guard
 ];
 

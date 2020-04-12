@@ -13,13 +13,10 @@ export class MovieService {
    //======================= add new movie Methods=========================================
  // to add new movie...first add poster image to storage
   addpostermovie(filename:string ,file ,metaData){
-    console.log('=======> waiting upload image')
     return this.storser.Uploadimg(filename ,file ,metaData)
   }
  // secound add data of new movie with postarUrl to firstore
   addmoviedata(moviedata){
-    console.log('=====> ready to send this object');
-    console.log(moviedata)
     return this.DB.collection('movie/').add(moviedata)
   }
   // ======================= Retrive movie/s Methods ======================================
@@ -39,7 +36,6 @@ export class MovieService {
   // ======================= Delete movie Method ==========================================
   // to add new movie...first add poster image to storage
   Deletepostermovie(filename:string){
-    console.log('=======> waiting Deleting image')
     return this.storser.DeleteImg(filename)
   }
   //delete movie

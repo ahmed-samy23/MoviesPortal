@@ -54,7 +54,6 @@ export class LogInComponent implements OnInit {
     })
     .catch(err => {// he is not a user
       this.clickedEP = false;
-      console.log('ERR catsh: ',err)
       window.alert(err.message);
     })
   }

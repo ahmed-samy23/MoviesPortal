@@ -42,7 +42,6 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
           this.mymovie.type = type.payload.data()['name'];
           this.loading = false;
         })
-      console.log('this.mymovie: ', this.mymovie)
     })
   }
   ngOnInit() {
@@ -64,14 +63,9 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
                   lastview.movieid = doc.data()['movieid'];
                   lastview.userid = doc.data()['userid'];
                 });
-                console.log('==============================================')
-                console.log('querySnapshot.size', querySnapshot.size)
-                console.log('==============================================')
-                console.log('65');
                 if (querySnapshot.size === 0) {
-                  console.log('not exist so will add')
                   viewinj.addView(authserMyUserid, movieId)
-                    .catch(err => console.log('err in viewadding: ', err))
+                    .catch(err => window.alert('err: '+ err.message))
                 }
               })
           }
@@ -79,7 +73,6 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
         })
     }
     this.myMovieObservable.unsubscribe();
-    console.log('updating done and subc un')
   }
 
 }

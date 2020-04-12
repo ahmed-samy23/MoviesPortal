@@ -6,23 +6,22 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 @Injectable({
   providedIn: 'root'
 })
-export class IsloginguardService implements CanActivate, OnDestroy {
+export class IsuserguardService implements CanActivate , OnDestroy {
   subscription:Subscription
-  constructor(private authser: AuthenticationService, private Router: Router) { 
-  }
+  constructor(private authser:AuthenticationService,private Router:Router) { }
 
-  canActivate(Route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean
-    | Observable<boolean> | Promise<boolean> {
+  canActivate(Route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean
+  | Observable<boolean> |Promise<boolean>{
     return new Promise ( resolve =>{
       this.subscription = this.authser.user.subscribe(user => {
-        if(!user){
+        if(user && this.authser.MyUser.type === 2){
           resolve(true)
           this.subscription.unsubscribe()
         }else{
           this.subscription.unsubscribe()
           resolve(false)
           this.Router.navigate([''])
-          window.alert('Sorry, You do not have permission to access this page!logged in before!')
+          window.alert('Sorry, You do not have permission to access this page!!')
         }
       })
     })

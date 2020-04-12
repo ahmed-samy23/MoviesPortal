@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../../interfaces/user';
 import { AuthenticationService } from './../../services/authentication.service';
 import { MovieService } from './../../services/movie.service';
@@ -23,7 +24,7 @@ export class AddmovieComponent implements OnInit {
   metaData = {};
   MyUser:User = {};
   constructor(private typeser:TypemovieService
-    ,private movieser:MovieService,private authser:AuthenticationService) { 
+    ,private movieser:MovieService,private authser:AuthenticationService,private router:Router) { 
       this.MyUser = this.authser.MyUser
     this.typeser.getalltypesofmovies().subscribe( data => {
       this.typesmovie = data.map(d=>{
@@ -36,16 +37,12 @@ export class AddmovieComponent implements OnInit {
   }
 
   ngOnInit() {
-    let date:string=new Date().toLocaleString().split(',')[0];
-    console.log('now date: ',date)
   }
   ClickedAdd:boolean = false;
   addnewmovie(form:NgForm){
     this.ClickedAdd = true;
     window.alert('The add process will take a little time..please wait');
     let movdata : Movie = form.value;
-    console.log('====> movdata values component');
-    console.log(movdata);
     this.movieser.addpostermovie(this.imgname , this.imgfile , this.metaData)
       .then(result => {
         result.task.snapshot.ref.getDownloadURL().then( downloadURL => {
@@ -54,7 +51,6 @@ export class AddmovieComponent implements OnInit {
         movdata.publishdate = date;
         movdata.imgname = this.imgname;
         movdata.numviews = 1;
-        console.log('dataofmovie ==> ',movdata);
         this.movieser.addmoviedata(movdata)
           .then(() => {
             form.reset();
@@ -66,7 +62,7 @@ export class AddmovieComponent implements OnInit {
             window.alert('An unexpected error occurred..please try again '+ err.message);
           })
         }).catch(err => {
-      console.log('ERR.. ',err)
+      window.alert('ERR.. '+err.message)
     })
     })
   }
@@ -75,9 +71,6 @@ export class AddmovieComponent implements OnInit {
   validtionposter(fileEvent: any){
     const file = fileEvent.target.files[0];
     const filename:string = file.name + Math.floor(100000 + Math.random() * 900000).toString();
-    console.log('file_name', file.name);
-    console.log('file_name', file.type);
-    console.log('filename', filename);
     if(file.type == 'image/jpeg' || file.type == 'image/png'){
       this.isposter = false;
       this.imgfile = file;
@@ -89,7 +82,6 @@ export class AddmovieComponent implements OnInit {
     }
   }
   validtiontrialurl(TrailerUrl: string){
-    console.log('TrailerUrl', TrailerUrl);
     let pattern = 'https://www.youtube.com/embed/'
     if(TrailerUrl.includes(pattern) && TrailerUrl.length > pattern.length){
       this.pattern = false;

@@ -9,7 +9,7 @@
         <div class="input-group-prepend">
           <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">camera_roll</mat-icon></div>
         </div>
-      <input name="title" #title="ngModel" ngModel type="text" class="form-control" placeholder="Name of movie" required maxlength="29">
+      <input name="title" #title="ngModel" ngModel type="text" class="form-control" placeholder="Example: Spider Man" required maxlength="29">
       </div>
       <div class="alert alert-danger" *ngIf="title.touched && (title.errors?.required || title.errors?.maxlength)">
         <div *ngIf="title.errors?.required">ERR...this Field is required, please enter the title of new movie.</div>
@@ -25,7 +25,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">camera_front</mat-icon></div>
             </div>
-          <input name="director" #Director="ngModel" ngModel type="text" class="form-control" placeholder="Example: honshon my" required>
+          <input name="director" #Director="ngModel" ngModel type="text" class="form-control" placeholder="Example: Bob Persichetti, Peter Ramsey" required>
           </div>
           <div class="alert alert-danger" *ngIf="Director.touched && Director.errors?.required">
             ERR...this Field is required, please enter the Director of new movie.
@@ -37,7 +37,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">create</mat-icon></div>
             </div>
-          <input name="writers" #writers="ngModel" ngModel type="text" class="form-control" placeholder="Example: honshon my" required>
+          <input name="writers" #writers="ngModel" ngModel type="text" class="form-control" placeholder="Example: Phil Lord, Rodney Rothman" required>
           </div>
           <div class="alert alert-danger" *ngIf="writers.touched && writers.errors?.required">
             ERR...this Field is required, please enter the writers of new movie.If are more than one, sperate by ',' .
@@ -51,7 +51,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text" style="padding-right: 35px;"><mat-icon style="position: absolute;">people</mat-icon></div>
           </div>
-        <input name="superstare" #ImportantCast="ngModel" ngModel type="text" class="form-control" placeholder="Example: mohamed ramadan, mohamed saed" required>
+        <input name="superstare" #ImportantCast="ngModel" ngModel type="text" class="form-control" placeholder="Example: Shameik Moore, Jake Johnson, Hailee Steinfeld" required>
         </div>
         <div class="alert alert-danger" *ngIf="ImportantCast.touched && ImportantCast.errors?.required">
           ERR...this Field is required, please enter the Important Cast of new movie Using "," as a separator between names.

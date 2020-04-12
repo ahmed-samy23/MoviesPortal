@@ -30,8 +30,6 @@ export class UserService {
   }
 
   addnewuser_googlePro(id:string ,userdata:User){
-    console.log('============ user services')
-    console.log(userdata)
     this.DB.doc('user/'+id).set(userdata);
   }
   // ======================= Update user Method ==========================================
@@ -41,7 +39,6 @@ export class UserService {
   }
   // ======================= delete movie Method ==========================================
   deleteuser(newuser:User){
-    console.log('in user sevice',newuser)
     return this.DB.doc('user/'+newuser.id).delete();
   }
   // ======================= other Method ==========================================

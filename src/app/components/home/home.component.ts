@@ -65,7 +65,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (u) {
         this.isUser = true;
         this.MyUser = this.authser.MyUser;
-        console.log('this.MyUser5',this.MyUser)
       }
       else this.isUser = false
     })
@@ -105,9 +104,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.listShowMovies.length === 0 ? this.collectionSize = this.listShowMovies.length + 1 : this.collectionSize = this.listShowMovies.length;
     this.loading = false;
-    console.log('================ this.listShowMovies ===========');
-    console.log(this.listShowMovies);
-    console.log('================ ================================== ===========');
   }
   //=============================== sortBy method ====================================
   sortBy(e){
@@ -125,13 +121,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           // equal
           return 0;
         })
-        console.log(value)
         break;
       case '2':
         this.listShowMovies.sort(function (a, b) {
           return a.numviews - b.numviews;
         }).reverse();
-        console.log(value)
         break;
       case '3':
         this.listShowMovies.sort(function(a, b) {
@@ -144,7 +138,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           // equal
           return 0;
         }).reverse();
-        console.log(value)
         break;
       default:
         break;
@@ -153,15 +146,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   //=============================== delete method ====================================
   deletemovie(DMovie: Movie) {
-    console.log('my movie will delete', DMovie)
     this.movieser.deleteMovie(DMovie.id)
       .then(() => {
-        console.log('delete from cloudstore')
         this.movieser.Deletepostermovie(DMovie.imgname);
-        console.log('delete from storage')
         window.alert(DMovie.title + ' deleted successfuly')
       })
-      .catch((err) => console.log('err: ', err))
+      .catch((err) => window.alert('err: '+ err.message))
   }
   //=============================== pagination bar inti ==============================
   get listofmovies() {
@@ -173,7 +163,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.typeObservable.unsubscribe();
     this.movieObservable.unsubscribe();
-    console.log('subscription stops')
   }
 
 }

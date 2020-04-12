@@ -18,7 +18,6 @@ export class ViewsService {
   }
 
   getviewsofuser(userID:string){
-    console.log('userID',userID)
     return this.DB.collection('view').ref.where("userid", "==", userID);
   }
 
